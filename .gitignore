@@ -14,3 +14,6 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+
+lib/import/*.xls
+lib/import/*.csv
