@@ -1,3 +1,4 @@
+# rails things
 *.rbc
 *.sassc
 .sass-cache
@@ -15,5 +16,10 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
+# emacs things
+*#
+*~
+
+# database things
 lib/import/*.xls
 lib/import/*.csv
