@@ -4,15 +4,91 @@
 
 <table>
   <tr>
+    <th> Gene id </th>
     <th> Gene name </th>
     <th> Gene symbol </th>
   </tr>
   <% @genes.each do |g| %>
   <tr>
+    <td><%= g.id %></td>
     <td><%= g.name %></td>
     <td><%= g.symbol %></td>
+    <% if g.chips.count > 1 %>
+    <% g.chips.each do |c| %>
+    <td><%= c.chip_id + ", " %></td>
+    <% end %>
+    <% else %>
+    <td><%= g.chips.first.chip_id %></td>
+    <% end %>
   </tr>
   <% end %>
 </table>
+<br/>
+<table>
+  <tr>
+    <th> Tissue name </th>
+    <th> Tissue total </th>
+  </tr>
+  <% @tissues.each do |t| %>
+  <tr>
+    <td><%= t.name %></td>
+    <td><%= t.total %></td>
+  <% end %>
+  </tr>
+</table>
+<br/>
+<h3>Chips</h3>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Chip id</th>
+    <th>Gene id</th>
+    <th>Gene name</th>
+  </tr>
+  <% @chips.each do |c| %>
+  <tr>
+    <td><%= c.id %></td>
+    <td><%= c.chip_id %></td>
+    <td><%= c.gene_id %></td>
+    <td><%= c.gene.name %></td>
+<!--    <td>< @genes.find_by_id(c.gene_id).name ></td> 
+    <% @genes.each do |g| %>
+    <% if g.id == c.gene_id %>
+    <td><%= g.name %>
+      <% end %>
+    <% end %> -->
+  </tr>
+  <% end %>
+</table>
+<br />
+<table>
+  <tr>
+    <th> Value id    </th>
+    <th> chip_id   </th>
+    <th> gene name </th>
+    <th> Tissue name </th>
+    <th> mean        </th>
+    <th> Tissue id </th>
+    <th> Mean greater than 10? </th>
+  </tr>
+  <% @values.each do |v| %>
+  <tr>
+    <td><%= v.id %></td>
+    <td><%= v.chip_id %></td>
+    <% chip = Chip.find_by_id(v.chip_id) %>
+    <td><%= Gene.find_by_id(chip.gene_id).name %></td>
+    <% n = v.tissue_id %>
+    <td><%= Tissue.find_by_id(n).name %></td>
+    <td><%= v.mean %></td>
+    <td><%= v.tissue_id.to_i %></td>
+    <% if v.mean > 10 %>
+    <td>True</td>
+    <% else %>
+    <td>False</td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+<br/>
 
-  <a><%= link_to "New Gene!", new_gene_path %></a>
+<a><%= link_to "New Gene!", new_gene_path %></a>

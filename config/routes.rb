@@ -1,5 +1,13 @@
 Genes::Application.routes.draw do
+
+  get "chip/index"
+
+  get "chip/new"
+
+  resources :tissues
   resources :genes
+
+
   get "genes/index"
 
   get "home/index"

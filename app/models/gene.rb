@@ -6,6 +6,6 @@ class Gene < ActiveRecord::Base
   validates :name, length: { minimum: 5, maximum: 100 }
   # validates :name, length: { minimum: 5, maximum: 100 }, :allow_blank => true  ?
 
-  has_many :chips, dependent: destroy
+  has_many :chips
 
 end

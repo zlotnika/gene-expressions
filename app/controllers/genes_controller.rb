@@ -1,6 +1,9 @@
 class GenesController < ApplicationController
   def index
     @genes = Gene.all
+    @tissues = Tissue.all
+    @values = Values.all
+    @chips = Chip.all
   end
 
   def new
