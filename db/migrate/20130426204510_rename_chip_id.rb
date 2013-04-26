@@ -1,9 +1,6 @@
 class RenameChipId < ActiveRecord::Migration
-  def up
+  def change
     rename_column :chips, :chip_id, :name
   end
 
-  def down
-    rename_column :chips, :name, :chip_id
-  end
 end
