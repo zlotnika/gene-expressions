@@ -1,7 +1,6 @@
 <h1>Genes#index</h1>
 <p>Find me in app/views/genes/index.html.erb</p>
 
-
 <%= form_tag genes_path, :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
@@ -21,7 +20,7 @@
     <td><%= link_to cg.symbol, gene_path(cg) %></td>
     <% if cg.chips.count >= 1 %>
     <% cg.chips.each do |chip| %>
-    <td><%= link_to chip.chip_id, chip_path(chip) %></td>
+    <td><%= link_to chip.name, chip_path(chip) %></td>
     <% end %>
     <% end %>
   </tr>
@@ -48,14 +47,14 @@
 <table>
   <tr>
     <th>Id</th>
-    <th>Chip id</th>
+    <th>Chip name</th>
     <th>Gene id</th>
     <th>Gene name</th>
   </tr>
   <% @chips.each do |c| %>
   <tr>
     <td><%= c.id %></td>
-    <td><%= c.chip_id %></td>
+    <td><%= c.name %></td>
     <td><%= c.gene_id %></td>
     <% if c.gene != nil %>
     <td><%= c.gene.symbol %></td>
@@ -67,7 +66,7 @@
 <table>
   <tr>
     <th> Value id    </th>
-    <th> chip_id   </th>
+    <th> chip id </th>
     <th> gene name </th>
     <th> Tissue name </th>
     <th> Tissue id </th>
