@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424051155) do
+ActiveRecord::Schema.define(:version => 20130426033952) do
 
   create_table "chips", :force => true do |t|
     t.string   "chip_id"
@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(:version => 20130424051155) do
   add_index "chips", ["gene_id"], :name => "index_chips_on_gene_id"
 
   create_table "genes", :force => true do |t|
-    t.string   "name"
     t.string   "symbol"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

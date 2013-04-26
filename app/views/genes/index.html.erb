@@ -5,20 +5,18 @@
 <table>
   <tr>
     <th> Gene id </th>
-    <th> Gene name </th>
     <th> Gene symbol </th>
     <th> Gene's chip(s)</th>
   </tr>
   <% @genes.each do |g| %>
   <tr>
     <td><%= link_to g.id, gene_path(g) %></td>
-    <td><%= g.name %></td>
     <td><%= g.symbol %></td>
     <% if g.chips.count > 1 %>
     <% g.chips.each do |c| %>
     <td><%= c.chip_id + ", " %></td>
     <% end %>
-    <% else %>
+    <% elsif g.chips.count == 1 %>
     <td><%= g.chips.first.chip_id %></td>
     <% end %>
   </tr>
@@ -34,8 +32,8 @@
   <tr>
     <td><%= t.name %></td>
     <td><%= t.total %></td>
-  <% end %>
   </tr>
+  <% end %>
 </table>
 <br/>
 <h3>Chips</h3>
@@ -51,13 +49,9 @@
     <td><%= c.id %></td>
     <td><%= c.chip_id %></td>
     <td><%= c.gene_id %></td>
-    <td><%= c.gene.name %></td>
-<!--    <td>< @genes.find_by_id(c.gene_id).name ></td> 
-    <% @genes.each do |g| %>
-    <% if g.id == c.gene_id %>
-    <td><%= g.name %>
-      <% end %>
-    <% end %> -->
+    <% if c.gene != nil %>
+    <td><%= c.gene.symbol %></td>
+    <% end %>
   </tr>
   <% end %>
 </table>
@@ -68,8 +62,8 @@
     <th> chip_id   </th>
     <th> gene name </th>
     <th> Tissue name </th>
-    <th> mean        </th>
     <th> Tissue id </th>
+    <th> mean        </th>
     <th> Mean greater than 10? </th>
   </tr>
   <% @values.each do |v| %>
@@ -77,11 +71,13 @@
     <td><%= v.id %></td>
     <td><%= v.chip_id %></td>
     <% chip = Chip.find_by_id(v.chip_id) %>
-    <td><%= Gene.find_by_id(chip.gene_id).name %></td>
+    <% if Gene.find_by_id(chip.gene_id) != nil %>
+    <td><%= Gene.find_by_id(chip.gene_id).symbol %></td>
+    <% end %>
     <% n = v.tissue_id %>
     <td><%= Tissue.find_by_id(n).name %></td>
-    <td><%= v.mean %></td>
     <td><%= v.tissue_id.to_i %></td>
+    <td><%= v.mean %></td>
     <% if v.mean > 10 %>
     <td>True</td>
     <% else %>
@@ -91,5 +87,21 @@
   <% end %>
 </table>
 <br/>
+<% @values_relevant.each do |v| %>
+<p><%= v.mean %></p>
+<% end %>
+<%= form_tag genes_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Gene Search" %>
+  </p>
+<% end %>
+<% if @cool_genes %>
+<%= @cool_genes.each do |cg| %>
+<p><%= cg.symbol %></p>
+<% end %>
+<% end %>
+
+
 
 <a><%= link_to "New Gene!", new_gene_path %></a>

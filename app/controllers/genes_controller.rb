@@ -2,8 +2,11 @@ class GenesController < ApplicationController
   def index
     @genes = Gene.all
     @tissues = Tissue.all
-    @values = Values.all
+    @values = Value.all
     @chips = Chip.all
+    @values_relevant = Value.meaningful
+    @cool_genes = Gene.search(params[:search])
+#    @gene = Gene.find(params[:id])
   end
 
   def new
