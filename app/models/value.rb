@@ -1,4 +1,4 @@
-class Values < ActiveRecord::Base
+class Value < ActiveRecord::Base
   belongs_to :chip
   belongs_to :tissue
   attr_accessible :mean, :standard_deviation

@@ -1,3 +1,3 @@
 class Gene < ActiveRecord::Base
-  attr_accessible :name, :symbol
+  attr_accessible :symbol
 end
