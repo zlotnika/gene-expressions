@@ -12,7 +12,6 @@ class Values < ActiveRecord::Base
   validates :chip_id, :tissue_id, presence: true
  # validates :tissue_id, :chip_id, uniqueness: true
   # validates :standard_deviation, presence: true, numericality: true
-
   # needs to have a unique combination of chip and tissue id.  check for this?
 
   def check_uniqueness
@@ -20,6 +19,7 @@ class Values < ActiveRecord::Base
     v1 = Values.where('chip_id = ?', self.chip_id)
     v2 = Values.where(:chip_id => self.chip_id)
     # grabs other value instances with the same chip id, then checks to make sure they don't also have the same tissue id
+    puts v2
     v2.each do |v|
       puts "v:" 
       puts v
@@ -28,8 +28,10 @@ class Values < ActiveRecord::Base
       puts "my tissue id: " 
       puts self.tissue_id
       puts " "
-      if v.tissue_id = self.tissue_id
-        puts "wrong"
+      if v.tissue_id == self.tissue_id
+        return false
+      else
+        puts "no duplication"
       end
     end
   end
@@ -37,7 +39,7 @@ class Values < ActiveRecord::Base
   def check_chip_id
     if Chip.find_by_id(self.chip_id).nil?
       puts "no such chip"
-#      return false
+      return false
     end
   end
 

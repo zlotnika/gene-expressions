@@ -1,0 +1,13 @@
+<h3>Greetings earthlings</h3>
+<p>Starting here</p>
+<p>Gene name: <%= @gene.name %></p>
+<p>Gene symbol: <%= @gene.symbol %></p>
+<br />
+<p>Chips: </p>
+<% @gene.chips.each do |chip| %>
+<span><%= chip %></span>
+<span><%= chip.id %></span>
+<span><%= link_to chip.chip_id, chip_path(chip) %></span>
+<br />
+<% end %>
+

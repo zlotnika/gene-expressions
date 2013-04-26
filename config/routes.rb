@@ -6,6 +6,7 @@ Genes::Application.routes.draw do
 
   resources :tissues
   resources :genes
+  resources :chips
 
 
   get "genes/index"

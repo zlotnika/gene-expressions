@@ -5,5 +5,6 @@ class Chip < ActiveRecord::Base
   validates :gene_id, presence: true
 
   belongs_to :gene
-#  has_many :values
+  has_many :values #LJ
+
 end

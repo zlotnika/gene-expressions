@@ -11,7 +11,7 @@ class GenesController < ApplicationController
   end
 
   def show
-    @genes = Gene.find(params[:id])
+    @gene = Gene.find(params[:id])
   end
 
   def update

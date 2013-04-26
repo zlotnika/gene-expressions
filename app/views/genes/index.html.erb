@@ -7,10 +7,11 @@
     <th> Gene id </th>
     <th> Gene name </th>
     <th> Gene symbol </th>
+    <th> Gene's chip(s)</th>
   </tr>
   <% @genes.each do |g| %>
   <tr>
-    <td><%= g.id %></td>
+    <td><%= link_to g.id, gene_path(g) %></td>
     <td><%= g.name %></td>
     <td><%= g.symbol %></td>
     <% if g.chips.count > 1 %>
