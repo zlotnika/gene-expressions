@@ -2,32 +2,40 @@
 <p>Find me in app/views/genes/index.html.erb</p>
 
 
+<%= form_tag genes_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Gene Search" %>
+  </p>
+<% end %>
+<% if @cool_genes %>
 <table>
   <tr>
-    <th> Gene id </th>
-    <th> Gene symbol </th>
-    <th> Gene's chip(s)</th>
+    <th>Gene id</th>
+    <th>Gene symbol</th>
+    <th>Gene chip(s)</th>
   </tr>
-  <% @genes.each do |g| %>
+<% @cool_genes.each do |cg| %>
   <tr>
-    <td><%= link_to g.id, gene_path(g) %></td>
-    <td><%= g.symbol %></td>
-    <% if g.chips.count > 1 %>
-    <% g.chips.each do |c| %>
-    <td><%= c.chip_id + ", " %></td>
+    <td><%= cg.id %></td>
+    <td><%= link_to cg.symbol, gene_path(cg) %></td>
+    <% if cg.chips.count >= 1 %>
+    <% cg.chips.each do |chip| %>
+    <td><%= link_to chip.chip_id, chip_path(chip) %></td>
     <% end %>
-    <% elsif g.chips.count == 1 %>
-    <td><%= g.chips.first.chip_id %></td>
     <% end %>
   </tr>
-  <% end %>
+<% end %>
+<% end %>
 </table>
+
 <br/>
 <table>
   <tr>
     <th> Tissue name </th>
     <th> Tissue total </th>
   </tr>
+  <tr><td><%= @tissues.count %></td></tr>
   <% @tissues.each do |t| %>
   <tr>
     <td><%= t.name %></td>
@@ -89,17 +97,6 @@
 <br/>
 <% @values_relevant.each do |v| %>
 <p><%= v.mean %></p>
-<% end %>
-<%= form_tag genes_path, :method => 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Gene Search" %>
-  </p>
-<% end %>
-<% if @cool_genes %>
-<%= @cool_genes.each do |cg| %>
-<p><%= cg.symbol %></p>
-<% end %>
 <% end %>
 
 
