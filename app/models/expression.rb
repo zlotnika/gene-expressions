@@ -1,12 +1,9 @@
-class Value < ActiveRecord::Base
-  before_validation :check_chip_id
-  before_validation :check_tissue_id
-#  before_validation :check_uniqueness
-
-#  attr_accessible :mean, :standard_deviation
-
+class Expression < ActiveRecord::Base
   belongs_to :chip
   belongs_to :tissue
+
+  before_validation :check_chip_id
+  before_validation :check_tissue_id
 
   validates :mean, presence: true, numericality: true
   validates :chip_id, :tissue_id, presence: true
@@ -14,16 +11,16 @@ class Value < ActiveRecord::Base
   # validates :standard_deviation, presence: true, numericality: true
   # needs to have a unique combination of chip and tissue id.  check for this?
 
-  # Value.where("mean > 30") # works on command line
+  # Expression.where("mean > 30") # works on command line
   scope :meaningful, -> { where("mean > 10") }
   scope :very_meaningful, -> { where("mean > 50") } # using SQL...?
 
 
   def check_uniqueness
-    chip_id_examples = Value.find_by_chip_id(self.chip_id)
-    v1 = Value.where('chip_id = ?', self.chip_id)
-    v2 = Value.where(:chip_id => self.chip_id)
-    # grabs other value instances with the same chip id, then checks to make sure they don't also have the same tissue id
+    chip_id_examples = Expression.find_by_chip_id(self.chip_id)
+    v1 = Expression.where('chip_id = ?', self.chip_id)
+    v2 = Expression.where(:chip_id => self.chip_id)
+    # grabs other expression instances with the same chip id, then checks to make sure they don't also have the same tissue id
     puts v2
     v2.each do |v|
       puts "v:" 

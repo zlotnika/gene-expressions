@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(:version => 20130426213622) do
 
   add_index "chips", ["gene_id"], :name => "index_chips_on_gene_id"
 
+  create_table "expressions", :force => true do |t|
+    t.float    "mean"
+    t.float    "standard_deviation"
+    t.integer  "chip_id"
+    t.integer  "tissue_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "expressions", ["chip_id"], :name => "index_expressions_on_chip_id"
+  add_index "expressions", ["tissue_id"], :name => "index_expressions_on_tissue_id"
+
   create_table "genes", :force => true do |t|
     t.string   "symbol"
     t.datetime "created_at", :null => false
@@ -65,17 +77,5 @@ ActiveRecord::Schema.define(:version => 20130426213622) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "values", :force => true do |t|
-    t.float    "mean"
-    t.float    "standard_deviation"
-    t.integer  "chip_id"
-    t.integer  "tissue_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  add_index "values", ["chip_id"], :name => "index_values_on_chip_id"
-  add_index "values", ["tissue_id"], :name => "index_values_on_tissue_id"
 
 end

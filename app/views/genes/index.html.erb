@@ -65,7 +65,7 @@
 <br />
 <table>
   <tr>
-    <th> Value id    </th>
+    <th> Expression id    </th>
     <th> chip id </th>
     <th> gene name </th>
     <th> Tissue name </th>
@@ -73,7 +73,7 @@
     <th> mean        </th>
     <th> Mean greater than 10? </th>
   </tr>
-  <% @values.each do |v| %>
+  <% @expressions.each do |v| %>
   <tr>
     <td><%= v.id %></td>
     <td><%= v.chip_id %></td>
@@ -94,7 +94,7 @@
   <% end %>
 </table>
 <br/>
-<% @values_relevant.each do |v| %>
+<% @expressions_relevant.each do |v| %>
 <p><%= v.mean %></p>
 <% end %>
 
