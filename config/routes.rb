@@ -1,5 +1,9 @@
 Genes::Application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  devise_for :users
+
   get "chip/index"
 
   get "chip/new"

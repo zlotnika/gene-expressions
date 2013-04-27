@@ -1,7 +1,7 @@
 class Value < ActiveRecord::Base
   before_validation :check_chip_id
   before_validation :check_tissue_id
-  before_validation :check_uniqueness
+#  before_validation :check_uniqueness
 
 #  attr_accessible :mean, :standard_deviation
 
