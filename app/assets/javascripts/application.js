@@ -13,3 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//= require jquery.flot
+//= require jquery.flot.resize
+//= require jquery.flot.categories

@@ -10,6 +10,9 @@ gem 'sqlite3'
 gem 'rails_admin'
 gem 'devise'
 
+gem "highcharts-rails", "~> 3.0.0"
+gem "flot-rails"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

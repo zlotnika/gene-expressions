@@ -10,4 +10,39 @@
 <br />
 <% end %>
 
+<% @gene.chips.each do |chip| %>
+<h3>Chip: <%= chip.name %></h3>
+<table>
+<tr><th>Tissue</th><th>Mean</th><th>Std. Deviation</th></tr>
+<% chip.expressions.each do |v| %>
+<tr>
+  <td><%= v.tissue.name %></td>
+  <td><%= v.mean %></td>
+  <td><%= v.standard_deviation %></td>
+</tr>
+<% end %>
+</table>
+<% end %>
 
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    var data = [ ["Brain", 101], ["Spleen", 11], ["Eye", 2] ]
+    var options = {
+      series: {
+        bars: { show: true },
+        points: { show: true },
+        barWidth: 0.6,
+        align: "center" },
+      xaxis: {
+        mode: "categories",
+        tickLength: 0 
+        }
+      }
+    $.plot($("#expressions_chart"),[ [["Brain",18], ["Spleen",13], ["Eye", 2]] ], options)
+    });
+</script>
+<div id="expressions_chart" style="width:700px; height:500px"></div>
+
+
+<p>     
+</p>
