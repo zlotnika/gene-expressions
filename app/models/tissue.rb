@@ -4,7 +4,7 @@ class Tissue < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :total, numericality: true
   
-  has_many :values # LJ
+  has_many :expressions # LJ
 
 
   #  scope :rotting, -> { where(rotting: true) } 
