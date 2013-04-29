@@ -5,7 +5,7 @@ class GenesController < ApplicationController
     @expressions = Expression.all
     @chips = Chip.all
     @expressions_relevant = Expression.meaningful
-    @cool_genes = Gene.search(params[:search])
+    @found_genes = Gene.search(params[:search])
 #    @gene = Gene.find(params[:id])
   end
 

@@ -7,14 +7,14 @@
     <%= submit_tag "Gene Search" %>
   </p>
 <% end %>
-<% if @cool_genes %>
+<% if @found_genes %>
 <table>
   <tr>
     <th>Gene id</th>
     <th>Gene symbol</th>
     <th>Gene chip(s)</th>
   </tr>
-<% @cool_genes.each do |cg| %>
+<% @found_genes.each do |cg| %>
   <tr>
     <td><%= cg.id %></td>
     <td><%= link_to cg.symbol, gene_path(cg) %></td>
