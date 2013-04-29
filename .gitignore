@@ -20,6 +20,7 @@ pickle-email-*.html
 *#
 *~
 *.#*
+.#*
 
 # database things
 lib/import/*.xls
