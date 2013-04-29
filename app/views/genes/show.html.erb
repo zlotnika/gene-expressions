@@ -4,9 +4,10 @@
 <br />
 <p>Chips: </p>
 <% @gene.chips.each do |chip| %>
-<span><%= chip %></span>
-<span><%= chip.id %></span>
-<span><%= link_to chip.name, chip_path(chip) %></span>
+<div><%= chip %></div>
+<div><%= chip.id %></div>
+<div><%= link_to chip.name, chip_path(chip) %></div>
 <br />
 <% end %>
+
 

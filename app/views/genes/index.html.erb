@@ -29,40 +29,7 @@
 </table>
 
 <br/>
-<table>
-  <tr>
-    <th> Tissue name </th>
-    <th> Tissue total </th>
-  </tr>
-  <tr><td><%= @tissues.count %></td></tr>
-  <% @tissues.each do |t| %>
-  <tr>
-    <td><%= t.name %></td>
-    <td><%= t.total %></td>
-  </tr>
-  <% end %>
-</table>
-<br/>
-<h3>Chips</h3>
-<table>
-  <tr>
-    <th>Id</th>
-    <th>Chip name</th>
-    <th>Gene id</th>
-    <th>Gene name</th>
-  </tr>
-  <% @chips.each do |c| %>
-  <tr>
-    <td><%= c.id %></td>
-    <td><%= c.name %></td>
-    <td><%= c.gene_id %></td>
-    <% if c.gene != nil %>
-    <td><%= c.gene.symbol %></td>
-    <% end %>
-  </tr>
-  <% end %>
-</table>
-<br />
+
 <table>
   <tr>
     <th> Expression id    </th>
@@ -99,5 +66,3 @@
 <% end %>
 
 
-
-<a><%= link_to "New Gene!", new_gene_path %></a>
