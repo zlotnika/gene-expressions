@@ -40,10 +40,10 @@ Maybe make a method in some controller/model to find an expression by the chip a
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
-    var a = "<%= @gene.chips.first.expressions.first.tissue.name %>"
-    var b = <%= @gene.chips.first.expressions.first.mean %>
-    var c = "spleen"
-    var d = <%= @gene.chips.first.expressions.find_by_tissue_id(2).mean %>
+    var a = "<%= @gene.chips.first.expressions.first.tissue.name rescue 'None' %>"
+    var b = <%= @gene.chips.first.expressions.first.mean rescue 0 %>
+    var c = "<%= @gene.chips.first.expressions.find_by_tissue_id(2).name rescue 'None2' %>"
+    var d = <%= @gene.chips.first.expressions.find_by_tissue_id(2).mean rescue 0 %>
     var data = [[ [a, b], [c, d], ["Eye", 2] ], [["Big toe", 20]] ]
     var options = {
       series: {

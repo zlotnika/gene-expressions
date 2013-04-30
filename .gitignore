@@ -25,3 +25,4 @@ pickle-email-*.html
 # database things
 lib/import/*.xls
 lib/import/*.csv
+.DS_Store
