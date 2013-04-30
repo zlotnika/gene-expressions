@@ -18,27 +18,55 @@ class Gene < ActiveRecord::Base
     end
   end
 
-    def get_expressions()
-      expressions_array = []
-      chips = self.chips
-      chips.each do |chip|
-        expressions = chip.expressions
-        expressions.each do |ex|
-          expressions_array.push(ex)
-        end
-      end
-      return expressions_array
+  def get_chips()
+    chips_array = []
+    self.chips.each do |chip|
+      chips_array.push(chip)
     end
-   
-    def get_expressions_by_chip(chip_id)
-      expressions_array = []
-      chip = Chip.find(chip_id)
+  end
+
+  def get_expressions()
+    expressions_array = []
+    chips = self.chips
+    chips.each do |chip|
       expressions = chip.expressions
       expressions.each do |ex|
         expressions_array.push(ex)
       end
-      return expressions_array
     end
-     
+    return expressions_array
+  end
+   
+  def old_get_expressions_by_chip(chip_id) # so you get { chip_object => [expression, expression, expression] }
+    chip = Chip.find(chip_id)
+    expressions = chip.expressions
+    expressions.each do |ex|
+      expressions_array.push(ex)
+    end
+    hash_thing = { chip => expressions_array }
+    return hash_thing
+#    return expressions_array
+  end
+
+
+  def get_expressions_by_chip(chip_id) # so you get [ expression, expression, expression ]
+    expressions_array = []
+    chip = Chip.find(chip_id)
+    expressions = chip.expressions
+    expressions.each do |ex|
+      expressions_array.push(ex)
+    end
+    return expressions_array
+  end
+
+  
+
+  def get_chip_expressions_hash(chips, expressions_array) # array of arrays
+    hash = {}
+    chips.each do |chip|
+      hash[chip] = expressions_array
+    end
+    return hash
+  end
 
 end

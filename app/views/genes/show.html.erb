@@ -3,7 +3,7 @@
 <p>Gene symbol: <%= @gene.symbol %></p>
 <br />
 <p>Chips: </p>
-<% @gene.chips.each do |chip| %>
+<% @chips.each do |chip| %>
 <div><%= chip %></div>
 <div><%= chip.id %></div>
 <div><%= link_to chip.name, chip_path(chip) %></div>
@@ -17,7 +17,16 @@
 <%= @expressions %>
 <br />
 
-<% @gene.chips.each do |chip| %>
+<% @chips.each do |chip| %>
+<p>Chip</p>
+<p><%= chip.name %></p>
+<% end %>
+<br />
+<h3>hash</h3>
+<%= @hash %>
+<br />
+
+<% @chips.each do |chip| %>
 <h3>Chip: <%= chip.name %></h3>
 <table>
 <tr><th>Tissue</th><th>Mean</th><th>Std. Deviation</th></tr>
@@ -36,7 +45,7 @@ So, it could go like this: def make_a_chart(array_of_values, name_of_div)
 i.e. make_a_chart([["Brain", 10], ["Spleen", 11]], "#expressions_chart_1")
 Maybe make a method in some controller/model to find an expression by the chip and the name of the body part
 -->
-<% @gene.chips.each do |c| %>
+<% @chips.each do |c| %>
 <h2><%= c.name %></h2>
 <p>FIND EXPRESSION</p>
 <%= c.find_expression(1) %> 
@@ -47,16 +56,21 @@ Maybe make a method in some controller/model to find an expression by the chip a
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
-    var a = "<%= @gene.chips.first.expressions.first.tissue.name rescue 'None' %>"
-    var b = <%= @gene.chips.first.expressions.first.mean rescue 0 %>
-    var c = "<%= @gene.chips.first.expressions.find_by_tissue_id(2).name rescue 'None2' %>"
-    var d = <%= @gene.chips.first.expressions.find_by_tissue_id(2).mean rescue 0 %>
-    var data = [[ [a, b], [c, d], ["Eye", 2] ], [["Big toe", 20]] ]
+    var a = "<%= @chips.first.expressions.first.tissue.name rescue 'None' %>"
+    var b = <%= @chips.first.expressions.first.mean rescue 0 %>
+    b = <%= @hash[@chip.first][0].mean rescue 0 %>
+    var c = "<%= @chips.first.expressions.find_by_tissue_id(2).name rescue 'None2' %>"
+    var d = <%= @chips.first.expressions.find_by_tissue_id(2).mean rescue 0 %>
+    data = [[[a, b], [c, d]], [[a, 3]]]
+    var data = [{ label: "one", data: [ [a, b], [c, d] ]}, { label: "two", data: [ ["Eye", 2] , [a, 20], [c, 32],["Big toe", 20]] } ]
     var options = {
       series: {
         bars: { show: true,
         barWidth: 0.6, 
         align: "center" }
+      },
+      legend: {
+        show: true
       },
       xaxis: {
         mode: "categories",

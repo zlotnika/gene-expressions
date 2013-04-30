@@ -15,7 +15,17 @@ class GenesController < ApplicationController
 
   def show
     @gene = Gene.find(params[:id])
+    @chips = @gene.get_chips
     @expressions = @gene.get_expressions
+    @hash = {}
+#    @array = []
+    @chips.each do |chip|
+      x = {}
+      x[chip] = @gene.get_expressions_by_chip(chip.id)
+#     x = @gene.old_get_expressions_by_chip(chip.id)
+      # @array.push(x)
+      @hash.merge!(x)
+    end
   end
 
   def update
