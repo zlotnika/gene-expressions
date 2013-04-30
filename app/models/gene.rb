@@ -18,4 +18,27 @@ class Gene < ActiveRecord::Base
     end
   end
 
+    def get_expressions()
+      expressions_array = []
+      chips = self.chips
+      chips.each do |chip|
+        expressions = chip.expressions
+        expressions.each do |ex|
+          expressions_array.push(ex)
+        end
+      end
+      return expressions_array
+    end
+   
+    def get_expressions_by_chip(chip_id)
+      expressions_array = []
+      chip = Chip.find(chip_id)
+      expressions = chip.expressions
+      expressions.each do |ex|
+        expressions_array.push(ex)
+      end
+      return expressions_array
+    end
+     
+
 end
