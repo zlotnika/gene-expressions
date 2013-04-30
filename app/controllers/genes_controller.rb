@@ -15,6 +15,7 @@ class GenesController < ApplicationController
 
   def show
     @gene = Gene.find(params[:id])
+    @expressions = @gene.get_expressions
   end
 
   def update

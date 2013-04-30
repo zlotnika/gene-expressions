@@ -10,6 +10,13 @@
 <br />
 <% end %>
 
+<% @expressions.each do |ex| %>
+<p><%= ex.chip_id %></p>
+<% end %>
+<br /> 
+<%= @expressions %>
+<br />
+
 <% @gene.chips.each do |chip| %>
 <h3>Chip: <%= chip.name %></h3>
 <table>
