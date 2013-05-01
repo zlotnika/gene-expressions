@@ -1,8 +1,8 @@
 <h3>I am a chip</h3>
-<p><%= @chip.name %> </p>
+<p>Chip: <%= @chip.name %> </p>
 <p>Gene: </p>
 <p><%= @chip.gene.symbol %></p>
-<table>
+<table class="lori">
 <tr><th>Tissue</th><th>Mean</th><th>Std. Deviation</th></tr>
 <% @chip.expressions.each do |v| %>
 <tr>
@@ -12,12 +12,5 @@
 </tr>
 <% end %>
 </table>
-<% mean_result = 0 %>
-<% @chip.expressions.each do |v| %>
-<% mean_result += v.mean %>
-<% end %>
-<% if @chip.expressions.count > 0 %>
-<% mean = mean_result / @chip.expressions.count %>
-<p>mean:<%= mean %></p>
-<p>Yes, this is meaningless!</p>
-<% end %>
+<br />
+<%= link_to "Back", genes_path %>

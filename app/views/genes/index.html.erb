@@ -8,12 +8,15 @@
   </p>
 <% end %>
 <% if @found_genes %>
-<table>
-  <tr>
-    <th>Gene id</th>
-    <th>Gene symbol</th>
-    <th>Gene chip(s)</th>
-  </tr>
+<table class="lori">
+  <thead>
+    <tr>
+      <th>Gene id</th>
+      <th>Gene symbol</th>
+      <th>Gene chip(s)</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @found_genes.each do |cg| %>
   <tr>
     <td><%= cg.id %></td>
@@ -26,43 +29,10 @@
   </tr>
 <% end %>
 <% end %>
+</tbody>
 </table>
 
 <br/>
 
-<table>
-  <tr>
-    <th> Expression id    </th>
-    <th> chip id </th>
-    <th> gene name </th>
-    <th> Tissue name </th>
-    <th> Tissue id </th>
-    <th> mean        </th>
-    <th> Mean greater than 10? </th>
-  </tr>
-  <% @expressions.each do |v| %>
-  <tr>
-    <td><%= v.id %></td>
-    <td><%= v.chip_id %></td>
-    <% chip = Chip.find_by_id(v.chip_id) %>
-    <% if Gene.find_by_id(chip.gene_id) != nil %>
-    <td><%= Gene.find_by_id(chip.gene_id).symbol %></td>
-    <% end %>
-    <% n = v.tissue_id %>
-    <td><%= Tissue.find_by_id(n).name %></td>
-    <td><%= v.tissue_id.to_i %></td>
-    <td><%= v.mean %></td>
-    <% if v.mean > 10 %>
-    <td>True</td>
-    <% else %>
-    <td>False</td>
-    <% end %>
-  </tr>
-  <% end %>
-</table>
-<br/>
-<% @expressions_relevant.each do |v| %>
-<p><%= v.mean %></p>
-<% end %>
 
 

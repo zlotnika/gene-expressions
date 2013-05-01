@@ -1,39 +1,20 @@
-<h3>Greetings earthlings</h3>
-<p>Starting here</p>
-<p>Gene symbol: <%= @gene.symbol %></p>
+<h3>Gene symbol: <%= @gene.symbol %></h3>
+<%= link_to "Back", genes_path %>
 <br />
 <p>Chips: </p>
 <% @chips.each do |chip| %>
-<div><%= chip %></div>
-<div><%= chip.id %></div>
-<div><%= link_to chip.name, chip_path(chip) %></div>
+<span><%= chip %></span>
+<span>  <%= chip.id %>  </span>
+<span><%= link_to chip.name, chip_path(chip) %></span>
 <br />
 <% end %>
-<h3>hash</h3>
+<h3>expressions hash</h3>
 <%= @expressions_hash.to_json.html_safe %>
 <br />
-
-
-
-<h2> Experimenting </h2>
-
-    <!-- var e = JSON.parse(<%= @chips.first.to_json %>)
-    var q = eval(< "{ 'one' => 1, 'two' => 2 }".to_json >)
-    console.log(q)
-    var h = JSON.parse(< @expressions_hash.to_json rescue 'None' >) -->
-
-<% @expressions_hash.each do |key, value| %>
-  <p>chip: <%= key %></p>
-  <p>expressions: <%= value %></p>
-  <%= value.each do |k, v| %>
-    <p>Tissue: <%= k %>, Mean: <%= v[0] %>, Std deviation: <%= v[1] %></p>
-  <% end %>
-<% end %>
-
-<br />
+<h3>Means</h3>
 <p><%= @means %></p>
 <br />
-
+<h2>Expressions for <%= @gene.symbol %></h2>
 <script type="text/javascript" charset="utf-8">
   $(function(){
     var do_graph = false
@@ -55,12 +36,14 @@
     var data2 = <%= @means[1].to_json.html_safe %>
     var data3 = <%= @means[2].to_json.html_safe %>
     var data4 = <%= @means[3].to_json.html_safe %>
+    var data5 = <%= @means[4].to_json.html_safe rescue None %>
+    data5 = (data5 != null) ? data5 : [["none", 0]]
     var a = "<%= @chips.first.expressions.first.tissue.name rescue 'None' %>"
     var b = <%= @chips.first.expressions.first.mean rescue 0 %>
     var d = <%= @chips.first.expressions.find_by_tissue_id(2).mean rescue 0 %>
 //    data = [data1, data2]
 //    data = [[[a, b], [c, d]], [[a, 3]], [["spleen", 12]]]
-    var data = [{ label: "one", data: data1 }, { label: "two", data: data2 }, { label: "three", data: data3 }, { label: "four", data: data4 } ]
+    var data = [{ label: "one", data: data1 }, { label: "two", data: data2 }, { label: "three", data: data3 }, { label: "four", data: data4 }, { label: "five", data: data5 }]
     var options = {
       series: {
         bars: { 
@@ -91,5 +74,5 @@
 <div id="data-alert"></div>
 <h2>End</h2>
 
-
+<%= link_to "Back", genes_path %>
 

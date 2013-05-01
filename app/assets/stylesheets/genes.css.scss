@@ -1,3 +1,12 @@
 // Place all the styles related to the Genes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.lori td {
+   width: 110px;
+}
+
+table.lori th {
+   width: 110px;
+   text-align: left;
+}
