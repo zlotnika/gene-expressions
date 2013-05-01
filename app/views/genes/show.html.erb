@@ -30,16 +30,28 @@
   <% end %>
 <% end %>
 
+<br />
+<p><%= @means %></p>
+<br />
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
+//    var data = []
+    var length = <%= @means.count %>
+//    for(i=0; i < length; i++){
+  //    d =  <= @means[i].to_json.html_safe >
+//      data.push({ label: i.to_s, data: d })
+  //    }
+    var data1 = <%= @means[0].to_json.html_safe %>
+    var data2 = <%= @means[1].to_json.html_safe %>
+    var data3 = <%= @means[2].to_json.html_safe %>
+    var data4 = <%= @means[3].to_json.html_safe %>
     var a = "<%= @chips.first.expressions.first.tissue.name rescue 'None' %>"
     var b = <%= @chips.first.expressions.first.mean rescue 0 %>
-    x = <%= @expressions_hash[@chips.first.name].to_json.html_safe %>
-    var c = "spleen"
     var d = <%= @chips.first.expressions.find_by_tissue_id(2).mean rescue 0 %>
-    data = [[[a, b], [c, d]], [[a, 3]]]
-    var data = [{ label: "one", data: [ [a, b], [c, d] ]}, { label: "two", data: [ ["Eye", 2] , [a, 20], [c, 32],["Big toe", 20]] } ]
+//    data = [data1, data2]
+//    data = [[[a, b], [c, d]], [[a, 3]]]
+    var data = [{ label: "one", data: data1 }, { label: "two", data: data2 } ]
     var options = {
       series: {
         bars: { show: true,

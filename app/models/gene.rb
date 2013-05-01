@@ -60,14 +60,13 @@ class Gene < ActiveRecord::Base
   end
 
 
-# FINISH MEEEEEEEE
-
-  def get_means_for_plotting(chips) # will take in a list of chip objects, and output the format that flot likes of data: [[["brain", 101], ["spleen", 25]], [["brain", 18], ["spleen", 93]]].  or:  { chip => [[["brain", 101], ["spleen", 25]]], other_chip => [ [["brain", 18], ["spleen", 93]] ]
+  def get_means_to_plot(chips = self.chips) # will take in a list of chip objects, and output the format that flot likes of data: [[["brain", 101], ["spleen", 25]], [["brain", 18], ["spleen", 93]]].  or:  { chip => [[["brain", 101], ["spleen", 25]]], other_chip => [ [["brain", 18], ["spleen", 93]] ]
     out_array = []
     chips.each do |chip|
       chip_array = []
-      chip.expressions each do |ex|
-        tissue = Tissue.find(ex.tissue_id)
+      chip.expressions.each do |ex|
+        puts ex.id
+        tissue = Tissue.find(ex.tissue_id).name
         mean = ex.mean
         mini_array = [tissue, mean]
         chip_array.push(mini_array)
@@ -76,7 +75,6 @@ class Gene < ActiveRecord::Base
     end
     return out_array
   end
-
 
 
   # not using below

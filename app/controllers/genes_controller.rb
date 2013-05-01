@@ -19,6 +19,7 @@ class GenesController < ApplicationController
     @expressions = @gene.get_expressions
     @expressions_hash = @gene.get_expressions_hash(@chips) # to_json maybe...
     @json_gene = @gene.to_json
+    @means = @gene.get_means_to_plot
 #    @expressions_hash = {}
  #   @chips.each do |chip|
   #    x = {}
