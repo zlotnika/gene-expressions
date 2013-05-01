@@ -38,12 +38,17 @@
     var data4 = <%= @means[3].to_json.html_safe %>
     var data5 = <%= @means[4].to_json.html_safe rescue None %>
     data5 = (data5 != null) ? data5 : [["none", 0]]
+    var label1 = <%= @chips.first.name.to_json.html_safe %>
+    var label2 = <%= @chips[1].name.to_json.html_safe rescue "no name".to_json.html_safe %>
+    var label3 = <%= @chips[2].name.to_json.html_safe rescue "no name".to_json.html_safe %>
+    var label4 = <%= @chips[3].name.to_json.html_safe rescue "no name".to_json.html_safe %>
+    var label5 = <%= @chips[4].name.to_json.html_safe rescue "no name".to_json.html_safe %>
     var a = "<%= @chips.first.expressions.first.tissue.name rescue 'None' %>"
     var b = <%= @chips.first.expressions.first.mean rescue 0 %>
     var d = <%= @chips.first.expressions.find_by_tissue_id(2).mean rescue 0 %>
 //    data = [data1, data2]
 //    data = [[[a, b], [c, d]], [[a, 3]], [["spleen", 12]]]
-    var data = [{ label: "one", data: data1 }, { label: "two", data: data2 }, { label: "three", data: data3 }, { label: "four", data: data4 }, { label: "five", data: data5 }]
+    var data = [{ label: label1, data: data1 }, { label: label2, data: data2 }, { label: label3, data: data3 }, { label: label4, data: data4 }, { label: label5, data: data5 }]
     var options = {
       series: {
         bars: { 
