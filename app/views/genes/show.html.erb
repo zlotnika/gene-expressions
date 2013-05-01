@@ -9,57 +9,34 @@
 <div><%= link_to chip.name, chip_path(chip) %></div>
 <br />
 <% end %>
-
-<% @expressions.each do |ex| %>
-<p><%= ex.chip_id %></p>
-<% end %>
-<br /> 
-<%= @expressions %>
-<br />
-
-<% @chips.each do |chip| %>
-<p>Chip</p>
-<p><%= chip.name %></p>
-<% end %>
-<br />
 <h3>hash</h3>
-<%= @hash %>
+<%= @expressions_hash.to_json.html_safe %>
 <br />
 
-<% @chips.each do |chip| %>
-<h3>Chip: <%= chip.name %></h3>
-<table>
-<tr><th>Tissue</th><th>Mean</th><th>Std. Deviation</th></tr>
-<% chip.expressions.each do |v| %>
-<tr>
-  <td><%= v.tissue.name %></td>
-  <td><%= v.mean %></td>
-  <td><%= v.standard_deviation %></td>
-</tr>
-<% end %>
-</table>
+
+
+<h2> Experimenting </h2>
+
+    <!-- var e = JSON.parse(<%= @chips.first.to_json %>)
+    var q = eval(< "{ 'one' => 1, 'two' => 2 }".to_json >)
+    console.log(q)
+    var h = JSON.parse(< @expressions_hash.to_json rescue 'None' >) -->
+
+<% @expressions_hash.each do |key, value| %>
+  <p>chip: <%= key %></p>
+  <p>expressions: <%= value %></p>
+  <%= value.each do |k, v| %>
+    <p>Tissue: <%= k %>, Mean: <%= v[0] %>, Std deviation: <%= v[1] %></p>
+  <% end %>
 <% end %>
 
-<!-- either have layered on top multiple chips, or have a separate chart per chip 
-So, it could go like this: def make_a_chart(array_of_values, name_of_div)
-i.e. make_a_chart([["Brain", 10], ["Spleen", 11]], "#expressions_chart_1")
-Maybe make a method in some controller/model to find an expression by the chip and the name of the body part
--->
-<% @chips.each do |c| %>
-<h2><%= c.name %></h2>
-<p>FIND EXPRESSION</p>
-<%= c.find_expression(1) %> 
-<% datas = [[ ["Brain", 10], ["Spleen", 11], ["Eye", 2] ], [["Big toe", 20]] ] %>
-<% json_data = datas.to_json %>
-<%= json_data %>
-<%= datas %>
 
 <script type="text/javascript" charset="utf-8">
   $(function(){
     var a = "<%= @chips.first.expressions.first.tissue.name rescue 'None' %>"
     var b = <%= @chips.first.expressions.first.mean rescue 0 %>
-    b = <%= @hash[@chip.first][0].mean rescue 0 %>
-    var c = "<%= @chips.first.expressions.find_by_tissue_id(2).name rescue 'None2' %>"
+    x = <%= @expressions_hash[@chips.first.name].to_json.html_safe %>
+    var c = "spleen"
     var d = <%= @chips.first.expressions.find_by_tissue_id(2).mean rescue 0 %>
     data = [[[a, b], [c, d]], [[a, 3]]]
     var data = [{ label: "one", data: [ [a, b], [c, d] ]}, { label: "two", data: [ ["Eye", 2] , [a, 20], [c, 32],["Big toe", 20]] } ]
@@ -82,7 +59,6 @@ Maybe make a method in some controller/model to find an expression by the chip a
 </script>
 <div id="expressions_chart" style="width:700px; height:500px"></div>
 <h2>End</h2>
-<% end %>
 
-<p>     
-</p>
+
+
