@@ -5,6 +5,7 @@ class ChipsController < ApplicationController
   
   def show
     @chip = Chip.find(params[:id])
+    @data = @chip.get_means
   end
 
   def new

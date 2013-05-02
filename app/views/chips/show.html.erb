@@ -13,17 +13,14 @@
 <% end %>
 </table>
 <br />
-<%= link_to "Back", genes_path %>
+<h2><%= @chip.name %> Expressions </h2>
 <script type="text/javascript" charset="utf-8">
   $(function(){
-//    data = [data1, data2]
-//    data = [[[a, b], [c, d]], [[a, 3]], [["spleen", 12]]]
-  //  var data = [{ label: label1, data: means[0] }, { label: label2, data: means[1] }, { label: label3, data: means[2] }, { label: label4, data: means[3] }, { label: label5, data: means[4] }]
-    var data = [[["hello", 1], ["hi", 2], ["cheerio", 3]]]
+    var data = [<%= @data.to_json.html_safe %> ]
     var options = {
       series: {
         bars: {
-          fill: false,
+          fill: true,
           show: true,
           barWidth: 0.6,
           align: "center" }
@@ -48,3 +45,4 @@
 </script>
 <div id="chip_chart" style="width:700px; height:500px"></div>
 </br>
+<%= link_to "Back", genes_path %>

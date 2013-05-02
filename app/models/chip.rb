@@ -12,6 +12,24 @@ class Chip < ActiveRecord::Base
     return ex
   end
 
+  def get_means()
+    expressions = self.expressions
+    mean_array = []
+    if expressions
+      for ex in expressions
+        tissue_id = ex.tissue_id
+        tissue = Tissue.find(tissue_id).name
+        mean = ex.mean
+        wee_array = [tissue, mean]
+        mean_array.push(wee_array)
+      end
+      return mean_array
+     else
+      return 0
+    end
+  end
+      
+
 # => Expression(id: integer, mean: float, standard_deviation: float, chip_id: integer, tissue_id: integer, created_at: datetime, updated_at: datetime) 
 #1.9.3-p362 :064 > ex.class()
 # returning:  => ActiveRecord::Relation
