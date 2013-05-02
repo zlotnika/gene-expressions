@@ -6,7 +6,4 @@ class Tissue < ActiveRecord::Base
   
   has_many :expressions # LJ
 
-
-  #  scope :rotting, -> { where(rotting: true) } 
-
 end

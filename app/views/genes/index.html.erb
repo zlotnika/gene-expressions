@@ -1,10 +1,5 @@
 <h1>Genes are great</h1>
 
-<script type="text/javascript" charset="utf-8">
-  $(function(){
-    $("#search").val("");
-});
-</script>
 <%= form_tag genes_path, :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
