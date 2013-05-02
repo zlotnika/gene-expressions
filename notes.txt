@@ -1,5 +1,6 @@
 Need to fix validations so you don't get two different expressions for the same chip and body part
 
+Fix gene search to be better
 
 
 Fixing heroku push problem
@@ -10,3 +11,9 @@ then ran
 gem uninstall bootstrap-sass
 bundle update bootstrap-sass
 bundle install
+
+I can now push to heroku, but there's nothing there :(
+
+
+
+
