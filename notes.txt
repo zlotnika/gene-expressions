@@ -1,1 +1,12 @@
 Need to fix validations so you don't get two different expressions for the same chip and body part
+
+
+
+Fixing heroku push problem
+
+gem "bootstrap-sass", "2.3.1.0"
+then ran
+
+gem uninstall bootstrap-sass
+bundle update bootstrap-sass
+bundle install

@@ -22,6 +22,8 @@ pickle-email-*.html
 *.#*
 .#*
 
+public/assets/*
+
 # database things
 lib/import/*.xls
 lib/import/*.csv
