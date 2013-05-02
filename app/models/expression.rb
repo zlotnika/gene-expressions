@@ -4,33 +4,29 @@ class Expression < ActiveRecord::Base
 
   before_validation :check_chip_id
   before_validation :check_tissue_id
+  before_validation :check_uniqueness
 
   validates :mean, presence: true, numericality: true
   validates :chip_id, :tissue_id, presence: true
- # validates :tissue_id, :chip_id, uniqueness: true
   # validates :standard_deviation, presence: true, numericality: true
-  # needs to have a unique combination of chip and tissue id.  check for this?
 
-  # Expression.where("mean > 30") # works on command line
   scope :meaningful, -> { where("mean > 10") }
   scope :very_meaningful, -> { where("mean > 50") } # using SQL...?
 
-
   def check_uniqueness
-    chip_id_examples = Expression.find_by_chip_id(self.chip_id)
-    v1 = Expression.where('chip_id = ?', self.chip_id)
-    v2 = Expression.where(:chip_id => self.chip_id)
+    other_expressions = Expression.where(:chip_id => self.chip_id)
     # grabs other expression instances with the same chip id, then checks to make sure they don't also have the same tissue id
-    puts v2
-    v2.each do |v|
-      puts "v:" 
-      puts v
-      puts "v's tissue_id:"
-      puts v.tissue_id
+    puts other_expressions
+    other_expressions.each do |ex|
+      puts "ex:" 
+      puts ex
+      puts "ex's tissue_id:"
+      puts ex.tissue_id
       puts "my tissue id: " 
       puts self.tissue_id
       puts " "
-      if v.tissue_id == self.tissue_id
+      if ex.tissue_id == self.tissue_id
+        puts "expression: " + ex.id.to_s + " has same tissue id and chip id"
         return false
       else
         puts "no duplication"
