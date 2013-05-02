@@ -14,3 +14,37 @@
 </table>
 <br />
 <%= link_to "Back", genes_path %>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+//    data = [data1, data2]
+//    data = [[[a, b], [c, d]], [[a, 3]], [["spleen", 12]]]
+  //  var data = [{ label: label1, data: means[0] }, { label: label2, data: means[1] }, { label: label3, data: means[2] }, { label: label4, data: means[3] }, { label: label5, data: means[4] }]
+    var data = [[["hello", 1], ["hi", 2], ["cheerio", 3]]]
+    var options = {
+      series: {
+        bars: {
+          fill: false,
+          show: true,
+          barWidth: 0.6,
+          align: "center" }
+      },bars: {
+        align: "center"
+      },
+      points: {
+        show: false
+      },
+      legend: {
+        show: true,
+        backgroundColor: "blue",
+        backgroundOpacity: .1
+      },
+      xaxis: {
+        mode: "categories",
+        tickLength: 0
+        }
+  }
+    $.plot($("#chip_chart"), data, options)
+    });
+</script>
+<div id="chip_chart" style="width:700px; height:500px"></div>
+</br>
