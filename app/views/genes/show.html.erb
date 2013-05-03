@@ -3,17 +3,10 @@
 <br />
 <p>Chips: </p>
 <% @chips.each do |chip| %>
-<span><%= chip %></span>
 <span>  <%= chip.id %>  </span>
 <span><%= link_to chip.name, chip_path(chip) %></span>
 <br />
 <% end %>
-<h3>expressions hash</h3>
-<%= @expressions_hash.to_json.html_safe %>
-<br />
-<h3>Means</h3>
-<p><%= @means %></p>
-<br />
 <h2>Expressions for <%= @gene.symbol %></h2>
 <script type="text/javascript" charset="utf-8">
   $(function(){
