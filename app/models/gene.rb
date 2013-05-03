@@ -7,6 +7,7 @@ class Gene < ActiveRecord::Base
   validates :symbol, length: { minimum: 3, maximum: 100 }
 
   has_many :chips
+  has_many :tags
 
   def self.search(search = false)
     puts search

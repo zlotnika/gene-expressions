@@ -16,6 +16,7 @@ class GenesController < ApplicationController
   def show
     @gene = Gene.find(params[:id])
     @chips = @gene.get_chips
+    @tags = @gene.tags
     @expressions = @gene.get_expressions
     @expressions_hash = @gene.get_expressions_hash(@chips) # to_json maybe...
     @json_gene = @gene.to_json
