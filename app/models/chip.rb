@@ -20,7 +20,7 @@ class Chip < ActiveRecord::Base
         tissue_id = ex.tissue_id
         tissue = Tissue.find(tissue_id).name
         mean = ex.mean
-        wee_array = [tissue, mean]
+        wee_array = [mean, tissue]
         mean_array.push(wee_array)
       end
       return mean_array
