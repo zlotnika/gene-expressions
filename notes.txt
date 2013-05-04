@@ -1,4 +1,5 @@
-Need to fix validations so you don't get two different expressions for the same chip and body part
+Need to fix validations so you don't get two different expressions for the same chip and body part DONE
+
 
 Fix gene search to be better
 
@@ -13,7 +14,12 @@ bundle update bootstrap-sass
 bundle install
 
 I can now push to heroku, but there's nothing there :(
+Don't forget to run rake db:migrate
 
+
+
+
+There have to be totals for all of the tissues.  this must be fixed in the csv.  
 
 
 
