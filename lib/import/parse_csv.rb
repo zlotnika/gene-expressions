@@ -30,7 +30,7 @@ module ImportGenes
         createChip(row[0], last_gene_symbol)
         # starting with expressions....
         row.each_with_index do |val, i|
-          if i > 2 #and x < 113
+          if i > 2 
             createExpression(row[0], i - 2, val) # chip_name, tissue_id, mean
            # print (x - 2), " i: ", i
           end
@@ -45,14 +45,13 @@ module ImportGenes
     Expression.create({ mean: mean, chip_id: chip.id, tissue_id: tissue.id })
   end
                        
-
   def createChip(name, gene_symbol)
     puts "created chip #{name}, belonging to gene #{gene_symbol}"
     gene = Gene.find_by_symbol(gene_symbol)
     Chip.create( {name: name, gene_id: gene.id })
   end
 
-  def createTag(descriptor, gene_symbol)
+  def createTag(descriptor, gene_symbol) # does not guarantee that a Tag will be unique.  but that may be fine.
     if descriptor != "---"
       gene = Gene.find_by_symbol(gene_symbol)
       Tag.create({ descriptor: descriptor, gene_id: gene.id })
