@@ -1,8 +1,8 @@
 <h3>I am a chip</h3>
-<p>Chip: <%= @chip.name %> </p>
+<p>Chip: <%= @chip.number %> </p>
 <p>Gene: <%= link_to @chip.gene.symbol, gene_path(@chip.gene) %></p>
 <br />
-<h2><%= @chip.name %> Expressions </h2>
+<h2><%= @chip.number %> Expressions </h2>
 <script type="text/javascript" charset="utf-8">
   $(function(){
     var data = [<%= @data.to_json.html_safe %> ]

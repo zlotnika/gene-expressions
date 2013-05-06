@@ -1,7 +1,7 @@
 class Chip < ActiveRecord::Base
 #  attr_accessible :chip_id
 
-  validates :name, uniqueness: true, presence: true
+  validates :number, uniqueness: true, presence: true
   validates :gene_id, numericality: true, allow_nil: true
 
   belongs_to :gene

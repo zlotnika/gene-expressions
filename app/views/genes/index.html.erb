@@ -22,7 +22,7 @@
     <td><%= link_to cg.symbol, gene_path(cg) %></td>
     <% if cg.chips.count >= 1 %>
     <% cg.chips.each do |chip| %>
-    <td><%= link_to chip.name, chip_path(chip) %></td>
+    <td><%= link_to chip.number, chip_path(chip) %></td>
     <% end %>
     <% end %>
   </tr>

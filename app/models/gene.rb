@@ -53,7 +53,7 @@ class Gene < ActiveRecord::Base
     chips.each do |chip|
     x = {}
       ex_array = self.get_expressions_by_chip(chip.id)
-      x[chip.name] = self.parse_expressions(ex_array)
+      x[chip.number] = self.parse_expressions(ex_array)
 #      x[chip] = self.parse_expressions(ex_array)
       expressions_hash.merge!(x)
     end
