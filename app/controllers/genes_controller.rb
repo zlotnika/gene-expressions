@@ -3,7 +3,7 @@ class GenesController < ApplicationController
     @genes = Gene.all
     @tissues = Tissue.all
     @expressions = Expression.all
-    @chips = Chip.all
+    @probesets = Probeset.all
     @expressions_relevant = Expression.meaningful
     @found_genes = Gene.search(params[:search])
 #    @gene = Gene.find(params[:id])
@@ -15,17 +15,17 @@ class GenesController < ApplicationController
 
   def show
     @gene = Gene.find(params[:id])
-    @chips = @gene.get_chips
+    @probesets = @gene.get_probesets
     @tags = @gene.tags
     @expressions = @gene.get_expressions
-    @expressions_hash = @gene.get_expressions_hash(@chips) # to_json maybe...
+    @expressions_hash = @gene.get_expressions_hash(@probesets) # to_json maybe...
     @json_gene = @gene.to_json
     @means = @gene.get_means_to_plot
 #    @expressions_hash = {}
- #   @chips.each do |chip|
+ #   @probesets.each do |probeset|
   #    x = {}
-   #   ex_array = @gene.get_expressions_by_chip(chip.id)
-    #  x[chip] = @gene.parse_expressions(ex_array)
+   #   ex_array = @gene.get_expressions_by_probeset(probeset.id)
+    #  x[probeset] = @gene.parse_expressions(ex_array)
     #  @expressions_hash.merge!(x)
 #    end
   end

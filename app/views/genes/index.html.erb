@@ -12,7 +12,7 @@
     <tr>
       <th>Gene id</th>
       <th>Gene symbol</th>
-      <th>Gene chip(s)</th>
+      <th>Gene probeset(s)</th>
     </tr>
   </thead>
   <tbody>
@@ -20,9 +20,9 @@
   <tr>
     <td><%= cg.id %></td>
     <td><%= link_to cg.symbol, gene_path(cg) %></td>
-    <% if cg.chips.count >= 1 %>
-    <% cg.chips.each do |chip| %>
-    <td><%= link_to chip.number, chip_path(chip) %></td>
+    <% if cg.probesets.count >= 1 %>
+    <% cg.probesets.each do |probeset| %>
+    <td><%= link_to probeset.number, probeset_path(probeset) %></td>
     <% end %>
     <% end %>
   </tr>

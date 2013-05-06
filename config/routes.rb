@@ -5,13 +5,13 @@ Genes::Application.routes.draw do
   devise_for :users# , :skip => :registrations
   
 
-  get "chip/index"
+  get "probeset/index"
 
-  get "chip/new"
+  get "probeset/new"
 
   resources :tissues
   resources :genes
-  resources :chips
+  resources :probesets
 
 
   get "genes/index"

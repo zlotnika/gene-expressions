@@ -11,27 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506201749) do
-
-  create_table "chips", :force => true do |t|
-    t.string   "number"
-    t.integer  "gene_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "chips", ["gene_id"], :name => "index_chips_on_gene_id"
+ActiveRecord::Schema.define(:version => 20130506202612) do
 
   create_table "expressions", :force => true do |t|
     t.float    "mean"
     t.float    "standard_deviation"
-    t.integer  "chip_id"
+    t.integer  "probeset_id"
     t.integer  "tissue_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
 
-  add_index "expressions", ["chip_id"], :name => "index_expressions_on_chip_id"
+  add_index "expressions", ["probeset_id"], :name => "index_expressions_on_probeset_id"
   add_index "expressions", ["tissue_id"], :name => "index_expressions_on_tissue_id"
 
   create_table "genes", :force => true do |t|
@@ -39,6 +30,15 @@ ActiveRecord::Schema.define(:version => 20130506201749) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "probesets", :force => true do |t|
+    t.string   "number"
+    t.integer  "gene_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "probesets", ["gene_id"], :name => "index_chips_on_gene_id"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"

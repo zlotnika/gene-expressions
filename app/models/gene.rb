@@ -6,7 +6,7 @@ class Gene < ActiveRecord::Base
   validates :symbol, uniqueness: true
   validates :symbol, length: { minimum: 3, maximum: 100 }
 
-  has_many :chips
+  has_many :probesets
   has_many :tags
 
   def self.search(search = false)
@@ -19,17 +19,17 @@ class Gene < ActiveRecord::Base
     end
   end
 
-  def get_chips()
-    chips_array = []
-    self.chips.each do |chip|
-      chips_array.push(chip)
+  def get_probesets()
+    probesets_array = []
+    self.probesets.each do |probeset|
+      probesets_array.push(probeset)
     end
   end
 
-  def get_expressions_by_chip(chip_id) # so you get [ expression, expression, expression ]
+  def get_expressions_by_probeset(probeset_id) # so you get [ expression, expression, expression ]
     expressions_array = []
-    chip = Chip.find(chip_id)
-    expressions = chip.expressions
+    probeset = Probeset.find(probeset_id)
+    expressions = probeset.expressions
     expressions.each do |ex|
       expressions_array.push(ex)
     end
@@ -48,31 +48,31 @@ class Gene < ActiveRecord::Base
     return nicer_hash
   end
 
-  def get_expressions_hash(chips) # intakes an array of chip objects, outputs a hash of { chip => [["brain", 1, 2], ["ear', 3, 4]] 
+  def get_expressions_hash(probesets) # intakes an array of probeset objects, outputs a hash of { probeset => [["brain", 1, 2], ["ear', 3, 4]] 
     expressions_hash = {}
-    chips.each do |chip|
+    probesets.each do |probeset|
     x = {}
-      ex_array = self.get_expressions_by_chip(chip.id)
-      x[chip.number] = self.parse_expressions(ex_array)
-#      x[chip] = self.parse_expressions(ex_array)
+      ex_array = self.get_expressions_by_probeset(probeset.id)
+      x[probeset.number] = self.parse_expressions(ex_array)
+#      x[probeset] = self.parse_expressions(ex_array)
       expressions_hash.merge!(x)
     end
     return expressions_hash
   end
 
 
-  def get_means_to_plot(chips = self.chips) # will take in a list of chip objects, and output the format that flot likes of data: [[["brain", 101], ["spleen", 25]], [["brain", 18], ["spleen", 93]]].  or:  { chip => [[["brain", 101], ["spleen", 25]]], other_chip => [ [["brain", 18], ["spleen", 93]] ]
+  def get_means_to_plot(probesets = self.probesets) # will take in a list of probeset objects, and output the format that flot likes of data: [[["brain", 101], ["spleen", 25]], [["brain", 18], ["spleen", 93]]].  or:  { probeset => [[["brain", 101], ["spleen", 25]]], other_probeset => [ [["brain", 18], ["spleen", 93]] ]
     out_array = []
-    chips.each do |chip|
-      chip_array = []
-      chip.expressions.each do |ex|
+    probesets.each do |probeset|
+      probeset_array = []
+      probeset.expressions.each do |ex|
         puts ex.id
         tissue = Tissue.find(ex.tissue_id).name
         mean = ex.mean
         mini_array = [tissue, mean]
-        chip_array.push(mini_array)
+        probeset_array.push(mini_array)
       end
-      out_array.push(chip_array)
+      out_array.push(probeset_array)
     end
     return out_array
   end
@@ -109,19 +109,19 @@ class Gene < ActiveRecord::Base
   end
 
 
-  def get_chip_expressions_hash(chips, expressions_array) # array of arrays
+  def get_probeset_expressions_hash(probesets, expressions_array) # array of arrays
     hash = {}
-    chips.each do |chip|
-      hash[chip] = expressions_array
+    probesets.each do |probeset|
+      hash[probeset] = expressions_array
     end
     return hash
   end
 
-  def get_expressions() # so you get all the expressions for one gene, not sorted by chip
+  def get_expressions() # so you get all the expressions for one gene, not sorted by probeset
     expressions_array = []
-    chips = self.chips
-    chips.each do |chip|
-      expressions = chip.expressions
+    probesets = self.probesets
+    probesets.each do |probeset|
+      expressions = probeset.expressions
       expressions.each do |ex|
         expressions_array.push(ex)
       end
@@ -129,13 +129,13 @@ class Gene < ActiveRecord::Base
     return expressions_array
   end
    
-  def old_get_expressions_by_chip(chip_id) # so you get { chip_object => [expression, expression, expression] }
-    chip = Chip.find(chip_id)
-    expressions = chip.expressions
+  def old_get_expressions_by_probeset(probeset_id) # so you get { probeset_object => [expression, expression, expression] }
+    probeset = Probeset.find(probeset_id)
+    expressions = probeset.expressions
     expressions.each do |ex|
       expressions_array.push(ex)
     end
-    hash_thing = { chip => expressions_array }
+    hash_thing = { probeset => expressions_array }
     return hash_thing
 #    return expressions_array
   end

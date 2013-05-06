@@ -1,5 +1,5 @@
-class Chip < ActiveRecord::Base
-#  attr_accessible :chip_id
+class Probeset < ActiveRecord::Base
+#  attr_accessible :probeset_id
 
   validates :number, uniqueness: true, presence: true
   validates :gene_id, numericality: true, allow_nil: true
@@ -30,7 +30,7 @@ class Chip < ActiveRecord::Base
   end
       
 
-# => Expression(id: integer, mean: float, standard_deviation: float, chip_id: integer, tissue_id: integer, created_at: datetime, updated_at: datetime) 
+# => Expression(id: integer, mean: float, standard_deviation: float, probeset_id: integer, tissue_id: integer, created_at: datetime, updated_at: datetime) 
 #1.9.3-p362 :064 > ex.class()
 # returning:  => ActiveRecord::Relation
 # but I want an Expression object
