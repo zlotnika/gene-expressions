@@ -3,14 +3,23 @@ module ImportGenes
   ROOT = "/Users/zlotnika/Documents/other work/gene-expressions/lib/import"
   MEANS = "/means.csv"
   STD = "/standard_deviations.csv"
-  # chip name, gene title, gene symbol
+  # probeset number, gene title, gene symbol
+  
+  def count_rows(filename, action=nil)
+    CSV.foreach(filename) do |row|
+      index += 1
+    end
+    puts index
+    return index
+  end
+
   def csv(filename, action=nil)
     index = 0
     tissue_totals = []
 #    last_gene_symbol = ""
     CSV.foreach(filename) do |row|
       index += 1
-      break if index >= 10  # this is for testing, yes?
+      break if index >= 20  # this is for testing, yes?
       if index == 1
         tissue_totals = row
       elsif index == 2 
@@ -21,9 +30,9 @@ module ImportGenes
         if row[2] != "---"
 #          last_gene_symbol = row[2]
           createGene(row[2])
-          createChip(row[0], row[2])  #(name, gene_symbol = nil)
+          createProbeset(row[0], row[2])  #(number, gene_symbol = nil)
         else
-          createChip(row[0])
+          createProbeset(row[0])
         end
         if row[1] != "---" #and row[1] != last_gene_symbol
           createTag(row[1], row[2]) #(descriptor, gene_symbol)
@@ -33,7 +42,7 @@ module ImportGenes
         # starting with expressions....
         row.each_with_index do |val, i|
           if i > 2 
-            createExpression(row[0], i - 2, val) # chip_name, tissue_id, mean
+            createExpression(row[0], i - 2, val) # probeset_number, tissue_id, mean
            # print (x - 2), " i: ", i
           end
         end
@@ -41,24 +50,29 @@ module ImportGenes
     end
   end
 
-  def createExpression(chip_name, tissue_id, mean)
-    chip = Chip.find_by_name(chip_name)
+  def createExpression(probeset_number, tissue_id, mean)
+    probeset = Probeset.find_by_number(probeset_number)
     tissue = Tissue.find(tissue_id)
-    Expression.create({ mean: mean, chip_id: chip.id, tissue_id: tissue.id })
+    Expression.create({ mean: mean, probeset_id: probeset.id, tissue_id: tissue.id })
   end
                        
-  def createChip(name, gene_symbol = nil)
-    puts "created chip #{name}, belonging to gene #{gene_symbol}"
+  def createProbeset(number, gene_symbol = nil)
+    puts "created probeset #{number}, belonging to gene #{gene_symbol}"
     if gene_symbol
       gene = Gene.find_by_symbol(gene_symbol)
-      Chip.create({ name: name, gene_id: gene.id })
+      Probeset.create({ number: number, gene_id: gene.id })
     else
-      Chip.create( {name: name })
+      Probeset.create( {number: number })
     end
   end
 
   def createTag(descriptor, gene_symbol) # does not guarantee that a Tag will be unique.  but that may be fine.
-    if descriptor != "---"
+    puts "creating tag"
+    if descriptor != "---" and gene_symbol != "---"
+      puts "gene symbol: "
+      puts gene_symbol
+      puts "descriptor: "
+      puts descriptor
       gene = Gene.find_by_symbol(gene_symbol)
       Tag.create({ descriptor: descriptor, gene_id: gene.id })
       puts "created tag #{descriptor}, belonging to gene #{gene_symbol}"

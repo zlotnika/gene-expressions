@@ -32,6 +32,11 @@
 </table>
 
 <br/>
-
+<h3>Uncategorized probesets</h3>
+<% @probesets.each do |ps| %>
+  <% if ps.gene_id != nil %>
+    <li><%= link_to ps.number %></li>
+  <% end %>
+<% end %>
 
 
