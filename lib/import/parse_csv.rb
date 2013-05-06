@@ -7,7 +7,7 @@ module ImportGenes
   def csv(filename, action=nil)
     index = 0
     tissue_totals = []
-    last_gene_symbol = ""
+#    last_gene_symbol = ""
     CSV.foreach(filename) do |row|
       index += 1
       break if index >= 10  # this is for testing, yes?
@@ -19,15 +19,17 @@ module ImportGenes
         end
       else 
         if row[2] != "---"
-          last_gene_symbol = row[2]
+#          last_gene_symbol = row[2]
           createGene(row[2])
+          createChip(row[0], row[2])  #(name, gene_symbol = nil)
+        else
+          createChip(row[0])
         end
-        if row[1] != "---" and row[1] != last_gene_symbol
-          createTag(row[1], last_gene_symbol)
-          puts last_gene_symbol
+        if row[1] != "---" #and row[1] != last_gene_symbol
+          createTag(row[1], row[2]) #(descriptor, gene_symbol)
+#          puts last_gene_symbol
           puts row[1]
         end
-        createChip(row[0], last_gene_symbol)
         # starting with expressions....
         row.each_with_index do |val, i|
           if i > 2 
@@ -45,10 +47,14 @@ module ImportGenes
     Expression.create({ mean: mean, chip_id: chip.id, tissue_id: tissue.id })
   end
                        
-  def createChip(name, gene_symbol)
+  def createChip(name, gene_symbol = nil)
     puts "created chip #{name}, belonging to gene #{gene_symbol}"
-    gene = Gene.find_by_symbol(gene_symbol)
-    Chip.create( {name: name, gene_id: gene.id })
+    if gene_symbol
+      gene = Gene.find_by_symbol(gene_symbol)
+      Chip.create({ name: name, gene_id: gene.id })
+    else
+      Chip.create( {name: name })
+    end
   end
 
   def createTag(descriptor, gene_symbol) # does not guarantee that a Tag will be unique.  but that may be fine.
