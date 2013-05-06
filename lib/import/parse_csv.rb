@@ -6,7 +6,9 @@ module ImportGenes
   # probeset number, gene title, gene symbol
   
   def count_rows(filename, action=nil)
+    index = 0
     CSV.foreach(filename) do |row|
+      puts index
       index += 1
     end
     puts index
@@ -16,10 +18,9 @@ module ImportGenes
   def csv(filename, action=nil)
     index = 0
     tissue_totals = []
-#    last_gene_symbol = ""
     CSV.foreach(filename) do |row|
       index += 1
-      break if index >= 20  # this is for testing, yes?
+      break if index >= 1000  # this is for testing, yes?
       if index == 1
         tissue_totals = row
       elsif index == 2 
@@ -28,7 +29,6 @@ module ImportGenes
         end
       else 
         if row[2] != "---"
-#          last_gene_symbol = row[2]
           createGene(row[2])
           createProbeset(row[0], row[2])  #(number, gene_symbol = nil)
         else
@@ -36,14 +36,11 @@ module ImportGenes
         end
         if row[1] != "---" #and row[1] != last_gene_symbol
           createTag(row[1], row[2]) #(descriptor, gene_symbol)
-#          puts last_gene_symbol
-          puts row[1]
         end
         # starting with expressions....
         row.each_with_index do |val, i|
           if i > 2 
             createExpression(row[0], i - 2, val) # probeset_number, tissue_id, mean
-           # print (x - 2), " i: ", i
           end
         end
       end

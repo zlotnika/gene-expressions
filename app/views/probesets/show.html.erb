@@ -1,6 +1,6 @@
 <h3>I am a probeset</h3>
 <p>Probeset: <%= @probeset.number %> </p>
-<p>Gene: <%= link_to @probeset.gene.symbol, gene_path(@probeset.gene) %></p>
+<p>Gene: <%= link_to @probeset.gene.symbol, gene_path(@probeset.gene) rescue "None" %></p>
 <br />
 <h2><%= @probeset.number %> Expressions </h2>
 <script type="text/javascript" charset="utf-8">
