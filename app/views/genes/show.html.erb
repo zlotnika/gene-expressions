@@ -46,7 +46,7 @@
     var options = {
       series: {
         bars: { 
-          fill: false,
+          fill: true,
           show: true,
           barWidth: 0.6, 
           horizontal: true,
@@ -76,17 +76,31 @@
         hoverable: true
         }
       }
+    function showTooltip(x, y, contents) {
+      $("<div id='tooltip'>" + contents + "</div>").css({
+        position: "absolute",
+        display: "none",
+        top: y - 10, // + 5,
+        left: x + 10, // + 5,
+        border: "1px solid #fdd",
+        padding: "2px",
+        "background-color": "#fee",
+        opacity: 0.80
+      }).appendTo("body").fadeIn(200);
+    }
     $.plot($("#expressions_chart"), data, options)
     $("#expressions_chart").on("plothover", function(event, pos, item){
+      $("#tooltip").remove();
       console.log(event)
       console.log(pos)
       console.log(item)
       console.log("x", pos.x, "y", pos.y)// item is undefined :(
+      showTooltip(item.pageX, item.pageY, item.datapoint[0])
       $("#for_lori").append(event)
     })
     });
 </script>
-<div id="expressions_chart" style="width:1000px; height:1300px"></div>
+<div id="expressions_chart" style="width:1000px; height:2000px"></div>
 </br>
 <div id="data-alert"></div>
 <h2>End</h2>
