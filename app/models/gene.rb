@@ -69,7 +69,7 @@ class Gene < ActiveRecord::Base
         puts ex.id
         tissue = Tissue.find(ex.tissue_id).name
         mean = ex.mean
-        mini_array = [tissue, mean]
+        mini_array = [mean, tissue]
         probeset_array.push(mini_array)
       end
       out_array.push(probeset_array)

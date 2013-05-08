@@ -49,6 +49,7 @@
           fill: false,
           show: true,
           barWidth: 0.6, 
+          horizontal: true,
           align: "center" }
       },
       bars: {
@@ -62,18 +63,34 @@
         backgroundColor: "blue",
         backgroundOpacity: .1
       },
+      yaxis: {
+         mode: "categories",
+         tickLength: 0
+         },
       xaxis: {
-        mode: "categories",
-        tickLength: 0
+        position: top
+  //      mode: "categories",
+    //    tickLength: 0
+        },
+      grid: {
+        hoverable: true
         }
       }
     $.plot($("#expressions_chart"), data, options)
+    $("#expressions_chart").on("plothover", function(event, pos, item){
+      console.log(event)
+      console.log(pos)
+      console.log(item)
+      console.log("x", pos.x, "y", pos.y)// item is undefined :(
+      $("#for_lori").append(event)
+    })
     });
 </script>
-<div id="expressions_chart" style="width:1200px; height:500px"></div>
+<div id="expressions_chart" style="width:1000px; height:1300px"></div>
 </br>
 <div id="data-alert"></div>
 <h2>End</h2>
+<div id="#for_lori">Hiyo</div>
 
 <%= link_to "Back", genes_path %>
 
