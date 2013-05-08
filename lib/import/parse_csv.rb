@@ -20,7 +20,7 @@ module ImportGenes
     tissue_totals = []
     CSV.foreach(filename) do |row|
       index += 1
-      break if index >= 1000  # this is for testing, yes?
+      break if index >= 10  # this is for testing, yes?
       if index == 1
         tissue_totals = row
       elsif index == 2 
@@ -34,7 +34,7 @@ module ImportGenes
         else
           createProbeset(row[0])
         end
-        if row[1] != "---" #and row[1] != last_gene_symbol
+        if row[1] != "---" and row[1] != row[2] #and row[1] != last_gene_symbol
           createTag(row[1], row[2]) #(descriptor, gene_symbol)
         end
         # starting with expressions....
