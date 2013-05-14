@@ -1,0 +1,30 @@
+<div ng-init="friends = [{name:'John', age:25}, {name:'Mary', age:28}]">
+  I have {{friends.length}} friends. They are:
+  <ul>
+    <li ng-repeat="friend in friends">
+      [{{$index + 1}}] {{friend.name}} who is {{friend.age}} years old.
+    </li>
+  </ul>
+</div>
+
+<h1>Tissue#index</h1>
+<p>Find me in app/views/tissue/index.html.erb</p>
+<div ng-controller="TissuesCtrl">
+  <h2>{{heading}}</h2>
+  <input type="text" ng_model="thing1"></input>
+  <p>{{thing1}}</p>
+  <input type="checkbox" ng-model="thing"></input>
+  <p>{{thing}}</p>
+  <li ng-repeat="tissue in tissues">{{tissue.name}}</li>
+  <p>{{tissues}}</p>
+
+  <ul>
+    <li ng-repeat="todo in todos">
+      <input type="checkbox" ng-model="todo.done">
+      <span class="done-{{todo.done}}">{{todo.text}}</span>
+    </li>
+  </ul>
+</div>
+<div ng-init="stuffs=[{name: 'stuff1'}, {name: 'stuff2'}]">
+  <li ng-repeat="stuff in stuffs">{{stuff.name}}</li>
+</div>
