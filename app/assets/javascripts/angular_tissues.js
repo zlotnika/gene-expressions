@@ -11,4 +11,5 @@ TissuesApp.controller('TissuesCtrl', ['$scope', function($scope){
     {text:'learn stuff', done:true},
     {text:'build a thing', done:false},
     {text:'stuff', done: false}];
+    console.log('scope: '+$scope)
 }])
