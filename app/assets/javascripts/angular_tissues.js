@@ -10,5 +10,5 @@ TissuesApp.controller('TissuesCtrl', ['$scope', function($scope){
     {text:'learn angular', done:true},
     {text:'build an angular app', done:false},
     {text:'stuff', done: false}];
-
+    console.log('scope: '+$scope)
 }])
