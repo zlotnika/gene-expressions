@@ -6,9 +6,9 @@
     </li>
   </ul>
 </div>
-<h1>Tissue#index</h1>
-<p>Find me in app/views/tissue/index.html.erb</p>
+
 <div ng-controller="TissuesCtrl">
+  <p>{{real_tissues}}</p>
   <p>{{things}}</p>
   <li ng-repeat="thing in things">{{thing}}</li>
   <h2>{{heading}}</h2>
@@ -17,13 +17,17 @@
   <input type="checkbox" ng-model="thing"></input>
   <p>{{thing}}</p>
   <li ng-repeat="tissue in tissues">{{tissue.name}}</li>
+  <h3>To do</h3>
   <ul>
     <li ng-repeat="todo in todos">
       <input type="checkbox" ng-model="todo.done">
       <span class="done-{{todo.done}}">{{todo.text}}</span>
     </li>
   </ul>
+  <h3>Done stuff</h3>
+  <ul ng-repeat="todo in done_todos()">
+    <li>{{todo.text}}</li>
+  </ul>
 </div>
-<div ng-init="stuffs=[{name: 'stuff1'}, {name: 'stuff2'}]">
-  <li ng-repeat="stuff in stuffs">{{stuff.name}}</li>
-</div>
+
+
