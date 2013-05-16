@@ -94,8 +94,11 @@
       console.log(event)
       console.log(pos)
       console.log(item)
-      console.log("x", pos.x, "y", pos.y)// item is undefined :(
-      showTooltip(item.pageX, item.pageY, item.datapoint[0])
+      if(item === null){
+        return 0;
+      }
+      else {
+        showTooltip(item.pageX, item.pageY, item.datapoint[0]) }
       $("#for_lori").append(event)
     })
     });
