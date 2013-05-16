@@ -8,10 +8,6 @@
 </div>
 
 <div ng-controller="TissuesCtrl">
-  <p>{{real_tissues}}</p>
-  <p>{{things}}</p>
-  <li ng-repeat="thing in things">{{thing}}</li>
-  <h2>{{heading}}</h2>
   <input type="text" ng_model="thing1"></input>
   <p>{{thing1}}</p>
   <input type="checkbox" ng-model="thing"></input>
@@ -25,8 +21,15 @@
     </li>
   </ul>
   <h3>Done stuff</h3>
-  <ul ng-repeat="todo in done_todos()">
-    <li>{{todo.text}}</li>
+  <ul>
+    <li ng-repeat="todo in done_todos()">{{todo.text}}</li>
+  </ul>
+  <br />
+  <nl>
+    <li ng_repeat="tissue in real_tissues">
+      <span>{{tissue.name}}</span>
+      <span>{{tissue.total | sort_by_totals}}</span>
+    </li>
   </ul>
 </div>
 

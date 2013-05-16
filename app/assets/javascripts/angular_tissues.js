@@ -2,6 +2,7 @@ var TissuesApp = angular.module('TissuesApp', ['ngResource'])
 
 
 TissuesApp.controller('TissuesCtrl', ['$scope', 'Tissue', function($scope, Tissue){
+    $scope.thing1 = "bindings are fun"
     $scope.real_tissues = Tissue.query();
     $scope.heading = "hello, world";
     $scope.things = ["hi","hello"];
@@ -31,3 +32,12 @@ TissuesApp.factory('Tissue', ['$resource', function($resource){
     return $resource('/tissues');
 }])
 
+TissuesApp.filter('sort_by_totals', function(){
+    return function(number){
+	if(number >= 5){
+	    return number }
+	else{
+	    return false
+	}
+    }
+})
