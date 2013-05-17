@@ -1,18 +1,19 @@
-<div ng-init="friends = [{name:'John', age:25}, {name:'Mary', age:28}]">
-  I have {{friends.length}} friends. They are:
-  <ul>
-    <li ng-repeat="friend in friends">
-      [{{$index + 1}}] {{friend.name}} who is {{friend.age}} years old.
-    </li>
-  </ul>
-</div>
-
 <div ng-controller="TissuesCtrl">
+  <p>{{tissues1}}<p>
+  <p>Calling tissue_names </p>
+  <p>{{tissue_names}}</p>
+  <p>calling get_tissue_names()</p>
+  <p>{{get_tissue_names()}}</p>
+  <p>calling finisheds</p>
+  <p>{{finisheds}}</p>
+  <p>calling done_todos()</p>
+  <p>{{done_todos()}}</p>
+  <h3>Datas</h3>
+  <p>{{datas}}</p>
   <input type="text" ng_model="thing1"></input>
   <p>{{thing1}}</p>
   <input type="checkbox" ng-model="thing"></input>
   <p>{{thing}}</p>
-  <li ng-repeat="tissue in tissues">{{tissue.name}}</li>
   <h3>To do</h3>
   <ul>
     <li ng-repeat="todo in todos">
@@ -22,15 +23,19 @@
   </ul>
   <h3>Done stuff</h3>
   <ul>
-    <li ng-repeat="todo in done_todos()">{{todo.text}}</li>
+<!--    <li ng-repeat="todo in done_todos()">{{todo.text}}</li> -->
   </ul>
   <br />
-  <nl>
-    <li ng_repeat="tissue in real_tissues">
-      <span>{{tissue.name}}</span>
-      <span>{{tissue.total | sort_by_totals}}</span>
+<!--  <p>{{get_tissue_names()}}</p> -->
+<!--  <nl>
+    <li ng_repeat="tissue in real_tissues"> 
+      <span>{tissue.name}</span>
+      <span>{tissue.total | sort_by_totals}</span>
     </li>
-  </ul>
+  </ul> 
+<p>{{get_tissue_totals()}}</p> -->
+<div id="tissues_chart" style="width:1000px; height:500px"></div>
+</br>
+<div id="data-alert"></div>
+
 </div>
-
-
