@@ -1,29 +1,28 @@
 var TissuesApp = angular.module('TissuesApp', ['ngResource'])
 
-TissuesApp.controller('TissuesCtrl', ['$scope', 'Tissue', function($scope, Tissue){
+TissuesApp.controller('TissuesCtrl', ['$resource', '$scope', 'Tissue', function($resource, $scope, Tissue){
+    var Gene = $resource('/genes')
+    console.log(Gene)
+    $scope.genes = Gene.query()
+    $scope.genes_first = function(){
+	return $scope.genes[0] }
+    $scope.first_gene = $scope.genes_first()
+//    $scope.genes = Gene.get()
+  //  console.log($scope.genes)
     $scope.tissues = Tissue.query();
     $scope.get_tissue_names = function(){
 	data = []
 	for (i = 0; i < 101; i++){ //$scope.tissues.length
-	    data.push($scope.tissues[i])}
+	    data.push($scope.tissues[i])} //.name
 	return data
     }
     $scope.tissue_names = $scope.get_tissue_names()
-    $scope.return_thing = function(){
-	total = []
-	for(i=0; i < 100; i++){
-	    total.push($scope.tissues[i])
-	  }
-	return total
-	}
-    $scope.thing = $scope.return_thing()
     $scope.datas = $scope.get_tissue_names()
     $scope.thing1 = "bindings are fun"
     $scope.get_tissue_totals = function(){
 	console.log("getting tissue totals")
 	totals = []
 	for (i = 0; i < $scope.tissues.length; i++){
-	    console.log($scope.tissues[i].total);
 	    totals.push([$scope.tissues[i].total, $scope.tissues[i].name])
 	    if ($scope.datas.length > $scope.tissues.length){ // without this, it repeats way too many times
 		$scope.datas.push([$scope.tissues[i].total, $scope.tissues[i].name])}}
@@ -47,7 +46,7 @@ TissuesApp.controller('TissuesCtrl', ['$scope', 'Tissue', function($scope, Tissu
   $(function(){
     var data = [$scope.get_tissue_totals()]
     var data = [[[4, "erstwhile"],[3,"kitten"],[5,$scope.thing1]]];
-    console.log(data)
+//    console.log(data)
     var options = {
       series: {
         bars: {
@@ -71,7 +70,7 @@ TissuesApp.controller('TissuesCtrl', ['$scope', 'Tissue', function($scope, Tissu
 }])
 
 TissuesApp.factory('Tissue', ['$resource', function($resource){
-    console.log($resource('/tissues'))
+//    console.log($resource('/tissues'))
     return $resource('/tissues');
 }])
 

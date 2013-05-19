@@ -1,11 +1,18 @@
 class GenesController < ApplicationController
+  
+  respond_to :json
+
   def index
-    @genes = Gene.all
-    @tissues = Tissue.all
-    @expressions = Expression.all
-    @probesets = Probeset.all
-    @expressions_relevant = Expression.meaningful
-    @found_genes = Gene.search(params[:search])
+    respond_to do |format|
+      format.html
+      format.json { render json: Gene.all }
+    end
+#    @genes = Gene.all
+#    @tissues = Tissue.all
+#    @expressions = Expression.all
+#    @probesets = Probeset.all
+#    @expressions_relevant = Expression.meaningful
+#    @found_genes = Gene.search(params[:search])
 #    @gene = Gene.find(params[:id])
   end
 
