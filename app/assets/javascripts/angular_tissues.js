@@ -2,7 +2,6 @@ var TissuesApp = angular.module('TissuesApp', ['ngResource'])
 
 TissuesApp.controller('TissuesCtrl', ['$resource', '$scope', 'Tissue', function($resource, $scope, Tissue){
     var Gene = $resource('/genes')
-    console.log(Gene)
     $scope.genes = Gene.query()
     $scope.genes_first = function(){
 	return $scope.genes[0] }
