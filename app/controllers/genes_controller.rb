@@ -6,14 +6,12 @@ class GenesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: Gene.all }
+      @tissues = Tissue.all
+      @expressions = Expression.all
+      @probesets = Probeset.all
+      @expressions_relevant = Expression.meaningful
+      @found_genes = Gene.search(params[:search])
     end
-#    @genes = Gene.all
-#    @tissues = Tissue.all
-#    @expressions = Expression.all
-#    @probesets = Probeset.all
-#    @expressions_relevant = Expression.meaningful
-#    @found_genes = Gene.search(params[:search])
-#    @gene = Gene.find(params[:id])
   end
 
   def new

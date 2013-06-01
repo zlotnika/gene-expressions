@@ -7,6 +7,7 @@ class TissuesController < ApplicationController
       format.html
       format.json { render json: Tissue.all }
     end
+    
   end
 
   def new

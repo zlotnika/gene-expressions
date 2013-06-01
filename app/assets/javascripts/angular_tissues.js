@@ -1,111 +1,30 @@
 var TissuesApp = angular.module('TissuesApp', ['ngResource'])
 
-TissuesApp.controller('TissuesCtrl', ['$scope', 'Tissue', function($scope, Tissue){
-    $scope.thing1 = "bindings are fun"
+TissuesApp.controller('TissuesCtrl', ['$scope', 'Tissue', 'Gene', 'Probeset', 'Expression', function($scope, Tissue, Gene, Probeset, Expression){
     $scope.tissues = Tissue.query();
+    $scope.genes = Gene.query();
+    $scope.probesets = Probeset.query();
+    $scope.expressions = Expression.query();
     $scope.change_tissues = function(){
 	$scope.tissues.push({name: 'new_tissue', total: 1})
     }
+ }])
 
-    $scope.get_tissue_names = function(){
-	data = []
-	for (i = 0; i < $scope.tissues.length; i++){
-	    data.push($scope.tissues[i].name)}
-	return data
-    }
-    $scope.return_thing = function(){
-	total = []
-	for(i=0; i < 100; i++){
-	    total.push($scope.tissues[i])
-	}
-	return total
-    }
-    $scope.thing = $scope.return_thing()
-    $scope.datas = $scope.get_tissue_names()
-    $scope.get_tissue_totals = function(){
-//	console.log("getting tissue totals")
-	totals = []
-	for (i = 0; i < $scope.tissues.length; i++){
-	    console.log($scope.tissues[i].total);
-	    totals.push([$scope.tissues[i].total, $scope.tissues[i].name])
-	    if ($scope.datas.length > $scope.tissues.length){ // without this, it repeats way too many times
-		$scope.datas.push([$scope.tissues[i].total, $scope.tissues[i].name])}}
-	return totals
-    }
-    $scope.things = ["hi","hello"];
-    $scope.todos = [
-	{text:'learn stuff', done:true},
-	{text:'build a thing', done:false},
-	{text:'stuff', done: false}];
-    $scope.done_todos = function(){
-	done_ones = [];
-	angular.forEach($scope.todos, function(todo){
-	    if (todo.done){
-		done_ones.push(todo);
-	    }
-	})
-	return done_ones;
-    }
-    $scope.finisheds = $scope.done_todos();
-<<<<<<< HEAD
-  $(function(){
-    var data = [$scope.get_tissue_totals()]
-    var data = [[[4, "erstwhile"],[3,"kitten"],[5,$scope.thing1]]];
-//    console.log(data)
-    var options = {
-      series: {
-        bars: {
-          fill: true,
-          show: true,
-          barWidth: 0.6,
-          horizontal: true,
-          align: "center" }
-      },
-      yaxis: {
-         mode: "categories",
-         tickLength: 0
-         },
-      xaxis: {
-        position: top
-	}
-    }
-    $.plot($("#tissues_chart"), data, options)
-})
-=======
 
-    $(function(){
-	var data = [$scope.get_tissue_totals()]
-	var data = [[[4, "erstwhile"],[3,"kitten"],[5,$scope.thing1]]];
-//	console.log(data)
-	var options = {
-	    series: {
-		bars: {
-		    fill: true,
-		    show: true,
-		    barWidth: 0.6,
-		    horizontal: true,
-		    align: "center" }
-	    },
-	    yaxis: {
-		mode: "categories",
-		tickLength: 0
-            },
-	    xaxis: {
-		position: top
-	    }
-	}
-	$.plot($("#tissues_chart"), data, options)
-    })
->>>>>>> b60f707bc5022fbe1fdff8c1154ead822284fa26
+TissuesApp.factory('Gene', ['$resource', function($resource){
+    return $resource('/genes');
+}])
 
+TissuesApp.factory('Probeset', ['$resource', function($resource){
+    return $resource('/probesets');
 }])
 
 TissuesApp.factory('Tissue', ['$resource', function($resource){
-<<<<<<< HEAD
-//    console.log($resource('/tissues'))
-=======
->>>>>>> b60f707bc5022fbe1fdff8c1154ead822284fa26
     return $resource('/tissues');
+}])
+
+TissuesApp.factory('Expression', ['$resource', function($resource){
+    return $resource('/expressions');
 }])
 
 TissuesApp.filter('sort_by_totals', function(){
@@ -118,26 +37,28 @@ TissuesApp.filter('sort_by_totals', function(){
     }
 })
 
-<<<<<<< HEAD
 
-  
-=======
 TissuesApp.directive('chart', function(){
     return{
-        restrict: 'E',
+        restrict: 'E', // chart can only be an element
         link: function(scope, elem, attrs){
-
+	    console.log("scope", scope)
+	    console.log("elem", elem)
+	    console.log("attrs", attrs)
 	    var dataize = function(data){
-		return $.map(data,function(tissue){
-		    return [[tissue.name, tissue.total]]
+		console.log("data", data)
+		return $.map(data,function(gene){ //(tissue){
+		    console.log(gene.id, gene.symbol)
+		    return[[gene.id, gene.symbol, "lori's variable of fun"]]// [[tissue.total, tissue.name]]
 		});
 	    }
-
             var chart = null,
                 opts  = { };
                    
-            scope.$watch(attrs.ngModel, function(v){
+            scope.$watch(attrs.ngModel, function(v){ //where does v come from??? 
+		console.log('v', v)
 		v = dataize(v)
+		console.log('new v', v)
 		v = [v]
 //		v = [ [[0, 1], [1, 5], [2, 2]] ]
 		console.log(v)
@@ -148,21 +69,22 @@ TissuesApp.directive('chart', function(){
 		    fill: true,
 		    show: true,
 		    barWidth: 0.6,
-//		    horizontal: true,
+		    horizontal: true,
 		    align: "center" }
 	    },
 	    xaxis: {
-		mode: "categories",
+//		mode: "categories",
 		tickLength: 0
             },
 	    yaxis: {
+		mode: "categories",
 		position: top
 	    }
 	}
 
-
                 if(!chart){
                     chart = $.plot(elem, v , opts);
+		    console.log("elem", elem)
                     $(elem).show();
                 }else{
                     chart.setData(v);
@@ -174,4 +96,75 @@ TissuesApp.directive('chart', function(){
         }
     };
 });
->>>>>>> b60f707bc5022fbe1fdff8c1154ead822284fa26
+
+TissuesApp.directive('copychart', function(){
+    return{
+        restrict: 'E', // chart can only be an element
+        link: function(scope, elem, attrs){
+	    console.log("scope", scope)
+	    console.log("elem", elem)
+	    console.log("attrs", attrs)
+	    var dataize = function(data){
+		console.log("data", data)
+		return $.map(data,function(gene){ //(tissue){
+		    console.log(gene.id, gene.symbol)
+		    return[[gene.id, gene.symbol, "lori's variable of fun"]]// [[tissue.total, tissue.name]]
+		});
+	    }
+            var copychart = null,
+                opts  = { };
+                   
+            scope.$watch(attrs.ngModel, function(v){ //where does v come from??? 
+		console.log('v', v)
+		v = dataize(v)
+		console.log('new v', v)
+		v = [v]
+//		v = [ [[0, 1], [1, 5], [2, 2]] ]
+		console.log(v)
+
+	var opts = {
+	    series: {
+		bars: {
+		    fill: true,
+		    show: true,
+		    barWidth: 0.6,
+		    horizontal: true,
+		    align: "center" }
+	    },
+	    xaxis: {
+//		mode: "categories",
+		tickLength: 0
+            },
+	    yaxis: {
+		mode: "categories",
+		position: top
+	    }
+	}
+
+                if(!copychart){
+                    copychart = $.plot(elem, v , opts);
+		    console.log("elem", elem)
+                    $(elem).show();
+                }else{
+                    copychart.setData(v);
+                    copychart.setupGrid();
+                    copychart.draw();
+                }
+            }, true)
+	    
+        }
+    };
+});
+
+
+TissuesApp.filter('sort_by_totals', function(){
+    return function(number){
+	if(number >= 5){
+	    return number }
+	else{
+	    return false
+	}
+    }
+})
+
+

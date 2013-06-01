@@ -1,6 +1,12 @@
 class ProbesetsController < ApplicationController
+  
+  respond_to :json
+
   def index
-    @probesets = Probeset.all
+    respond_to do |format|
+      format.html
+      format.json { render json: Probeset.all }
+    end
   end
   
   def show
